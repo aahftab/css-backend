@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# IDE/Editor specific
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific
+.DS_Store
+
+# Logs
+*.log
+
+# Build/Distribution
+dist/
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# Package files
+package-lock.json
+yarn.lock
