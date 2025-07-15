@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  css-backend-dev:
+    environment:
+      - NODE_ENV=development
+      - DEBUG=express:*,morgan
+      - LOG_LEVEL=debug
+    volumes:
+      # Additional development mounts
+      - ./:/app:cached
+      - /app/node_modules
+    # Override for development with more verbose output
+    command: ["nodemon", "--inspect=0.0.0.0:9229", "--verbose", "src/server.js"]

@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  css-backend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: css-backend-dev
+    ports:
+      - "3000:3000"
+      - "9229:9229"  # Debug port
+    volumes:
+      # Mount source code for hot reloading
+      - ./src:/app/src:ro
+      - ./package.json:/app/package.json:ro
+      - ./package-lock.json:/app/package-lock.json:ro
+      # Exclude node_modules to avoid conflicts
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DEBUG=*
+    # Enable debugging
+    command: ["nodemon", "--inspect=0.0.0.0:9229", "src/server.js"]
+    restart: unless-stopped
+    networks:
+      - css-network
+
+networks:
+  css-network:
+    driver: bridge
