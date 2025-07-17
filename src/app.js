@@ -15,10 +15,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the API" });
 });
 
-app.get("/gg", (req, res) => {
-  throw new Error("This is a forced error.");
-});
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

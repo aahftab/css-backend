@@ -1,28 +1,26 @@
-const { Sequelize } = require('sequelize');
-require('dotenv').config();
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
+dotenv.config();
+const DB_DEVELOPMENT_DATABASE = process.env.DB_DEVELOPMENT_DATABASE;
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASS = process.env.DB_PASSWORD;
+const DB_HOST = process.env.DB_HOST;
+const DB_PORT = process.env.DB_PORT;
+const DB_DIALECT = process.env.DB_DIALECT;
 
-// Database connection parameters
-const DB_NAME = process.env.DB_NAME || 'css_website';
-const DB_USER = process.env.DB_USER || 'postgres';
-const DB_PASS = process.env.DB_PASSWORD || '';
-const DB_HOST = process.env.DB_HOST || 'localhost';
-const DB_PORT = process.env.DB_PORT || 5432;
-
-// Create Sequelize instance
-const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
+const sequelize = new Sequelize(DB_DEVELOPMENT_DATABASE, DB_USERNAME, DB_PASS, {
   host: DB_HOST,
   port: DB_PORT,
-  dialect: 'postgres',
+  dialect: DB_DIALECT,
   pool: {
     max: 5,
     min: 0,
     acquire: 30000,
     idle: 10000
   },
-  logging: false // Set to console.log to see SQL queries
+  logging: false,
 });
 
-// Test database connection
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
@@ -34,6 +32,4 @@ const testConnection = async () => {
 
 testConnection();
 
-module.exports = sequelize;
-
-
+export default sequelize;
