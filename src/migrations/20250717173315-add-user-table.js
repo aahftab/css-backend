@@ -1,53 +1,56 @@
-import { DataTypes } from "sequelize";
-
 /** @type {import('sequelize-cli').Migration} */
 export default {
   async up(queryInterface, Sequelize) {
     return await queryInterface.createTable(
-      "Users",
+      "users",
       {
         id: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
           primaryKey: true,
           autoIncrement: true,
         },
-        firstName: {
-          type: DataTypes.STRING,
+        username: {
+          type: Sequelize.STRING,
+          allowNull: false,
+          unique: true,
+        },
+        firstname: {
+          type: Sequelize.STRING,
           allowNull: false,
         },
-        lastName: {
-          type: DataTypes.STRING,
+        lastname: {
+          type: Sequelize.STRING,
           allowNull: false,
         },
         email: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false,
           validate: {
             isEmail: true,
           },
         },
-        hashedPassword: {
-          type: DataTypes.STRING,
+        hashed_password: {
+          type: Sequelize.STRING,
           allowNull: false,
         },
         role: {
-          type: DataTypes.ENUM(
+          type: Sequelize.ENUM(
             "user",
             "admin",
             "superadmin"
           ),
           allowNull: false,
         },
-        createdAt: {
+        created_at: {
           allowNull: false,
-          type: DataTypes.DATE,
+          type: Sequelize.DATE,
         },
-        updatedAt: {
+        updated_at: {
           allowNull: false,
-          type: DataTypes.DATE,
+          type: Sequelize.DATE,
         },
-        deletedAt: {
-          type: DataTypes.DATE,
+        deleted_at: {
+          type: Sequelize.DATE,
           allowNull: true,
         },
       }
@@ -55,6 +58,10 @@ export default {
   },
 
   async down(queryInterface, Sequelize) {
-    return await queryInterface.dropTable("Users")
+    await queryInterface.dropTable("users")
+    await queryInterface.sequelize.query(
+      'DROP SEQUENCE IF EXISTS "users_id_seq";'
+    );
+    return Promise.resolve();
   },
 };

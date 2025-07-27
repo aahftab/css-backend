@@ -8,11 +8,16 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      firstName: {
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      firstname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      lastName: {
+      lastname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -23,7 +28,7 @@ export default (sequelize, DataTypes) => {
           isEmail: true,
         },
       },
-      hashedPassword: {
+      hashed_password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -36,10 +41,17 @@ export default (sequelize, DataTypes) => {
       timestamps: true,
       paranoid: true,
       defaultScope: {
-        attributes: { exclude: ["hashedPassword"] },
+        attributes: { exclude: ["hashed_password"] },
+      },
+      scopes: {
+        withPassword: {
+          attributes: { include : ["hashed_password"] },
+        }
       },
       sequelize,
+      modelName: "User",
     }
   );
+  // User.sync({force:true});
   return User;
 };
