@@ -1,20 +1,26 @@
 
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection:', reason);
+});
 import express from "express";
 import cors from "cors";
-import morgan from "morgan";
-const app = express();
 import ApiResponse from "./utils/ApiResponse.js";
 import authRoutes from "./routes/auth.routes.js";
-import logger from "./utils/logger.js";
 import logMiddleware from "./middlewares/log.middleware.js";
+
+const app = express();
 app.use(cors());
-app.use(logMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(logMiddleware);
 
 app.get("/", (req, res) => {
   res.json(new ApiResponse(200, null, "Welcome to the API"));
 });
+
 app.use("/api/v1/auth", authRoutes);
 
 // Error handling middleware
