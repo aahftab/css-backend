@@ -1,8 +1,8 @@
 
 
-const sessionMiddleware = (req, res, next) => {
+// const sessionMiddleware = (req, res, next) => {
   
-  next();
-};
+//   next();
+// };
 
-export default sessionMiddleware;
+// export default sessionMiddleware;

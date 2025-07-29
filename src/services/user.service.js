@@ -1,6 +1,5 @@
 import db from "../models/index.js";
 import verifyHash from "./verifyHash.service.js";
-
 const getUser = async (username, password) => {
   const user = await db.User.scope("withPassword").findOne({
     where: {

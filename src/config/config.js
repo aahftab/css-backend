@@ -1,5 +1,6 @@
-import dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
+// import dotenv from "dotenv";
+// dotenv.config({ path: "../.env" });
+
 export default {
   development: {
     username: process.env.DB_USERNAME,

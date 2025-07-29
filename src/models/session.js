@@ -1,11 +1,11 @@
-import { Model } from "sequelize";
+import { Model, Sequelize } from "sequelize";
 export default (sequelize, DataTypes) => {
   class Session extends Model {}
   Session.init(
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.literal("gen_random_uuid()"),
+        defaultValue: Sequelize.literal("gen_random_uuid()"),
         primaryKey: true,
         allowNull: false,
       },
@@ -20,7 +20,7 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "session",
+      modelName: "Session",
     }
   );
   return Session;
