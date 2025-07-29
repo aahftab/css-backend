@@ -1,6 +1,6 @@
 // import dotenv from "dotenv";
 // dotenv.config({ path: "../.env" });
-
+import logger from "../utils/logger.js";
 export default {
   development: {
     username: process.env.DB_USERNAME,
@@ -8,6 +8,7 @@ export default {
     database: process.env.DB_DEVELOPMENT_DATABASE,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    logging: (msg) => logger.debug(msg),
     define: {
       underscored: true,
       timestamps: true,
