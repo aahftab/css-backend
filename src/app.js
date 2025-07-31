@@ -1,13 +1,15 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import ApiResponse from "./utils/ApiResponse.js";
 import authRoutes from "./routes/auth.routes.js";
 import logMiddleware from "./middlewares/log.middleware.js";
 
 const app = express();
 app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 app.use(logMiddleware);
 
 app.get("/", (req, res) => {

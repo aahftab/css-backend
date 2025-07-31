@@ -19,4 +19,16 @@ const createSession = async (user, expires) => {
   }
 };
 
-export { createSession };
+const deleteSession = async(sessionId) => {
+  try {
+    const result = await db.Session.destroy({
+      where: {id: sessionId}
+    })
+    return true;
+  } catch (error) {
+    logger.error(error);
+    return false;
+  }
+}
+
+export { createSession, deleteSession };

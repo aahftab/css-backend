@@ -1,7 +1,8 @@
 import { getUser } from "../services/user.service.js";
 import ApiResponse from "../utils/ApiResponse.js";
-import { createSession } from "../services/session.service.js";
+import { createSession, deleteSession } from "../services/session.service.js";
 import ApiError from "../utils/ApiError.js";
+import logger from "../utils/logger.js";
 
 const loginController = async (req, res) => {
   const { username, password } = req.body;
@@ -27,12 +28,20 @@ const loginController = async (req, res) => {
       })
       .json(new ApiResponse(200, "Login Successful", { sessionId }));
   } catch (error) {
-    console.error("Error creating session:", error);
+    logger.error("Error creating session:", error);
     return res.json(new ApiResponse(500, "Internal Server Error"));
   }
 };
 
 const logoutController = (req, res) => {
+  const sessionId = req.cookies.sessionId;
+  if(!sessionId) {
+    return res.json(new ApiError(200, "Already logged out"));
+  }
+  const isDeleted = deleteSession(sessionId);
+  if (!isDeleted) {
+    return res.json(new ApiError(500, "Failed to delete session"));
+  }
   res.clearCookie("sessionId").json(new ApiResponse(200, "Logout Successful"));
 };
 
