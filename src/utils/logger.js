@@ -2,9 +2,18 @@
 import { createLogger, format, transports } from "winston";
 const { combine, timestamp, printf, colorize, errors } = format;
 
-// Custom format
-const logFormat = printf(({ level, message, timestamp, stack }) => {
-  return `${timestamp} ${level}: ${stack || message}`;
+const logFormat = printf(info => {
+  let log = `${info.timestamp} ${info.level}: ${info.message}`;
+
+  if (info.stack) {
+    log = `${log}\n${info.stack}`;
+  }
+  if (info.errors && Array.isArray(info.errors)) {
+    const errorDetails = JSON.stringify(info.errors, null, 2);
+    log = `${log}\nError Details: ${errorDetails}`;
+  }
+
+  return log;
 });
 
 const logger = createLogger({

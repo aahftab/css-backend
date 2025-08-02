@@ -1,7 +1,7 @@
 import db from "../models/index.js";
 import logger from "../utils/logger.js";
 import verifyHash from "./verifyHash.service.js";
-const getUser = async (username, password) => {
+const verifyAndGetUser = async (username, password) => {
   const user = await db.User.scope("withPassword").findOne({
     where: {
       username,
@@ -17,4 +17,16 @@ const getUser = async (username, password) => {
   logger.info("User password not matched");
   return null;
 };
-export { getUser };
+
+const getUser = async userId => {
+  const user = await db.User.findOne({
+    where: {
+      id: userId,
+    },
+  });
+  if (!user) {
+    return null;
+  }
+  return user;
+};
+export { verifyAndGetUser, getUser };

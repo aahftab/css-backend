@@ -8,8 +8,8 @@ export default {
     return await queryInterface.bulkInsert("users", [
       {
         username: "aftab",
-        firstname: "Aftab",
-        lastname: "Ansari",
+        firstName: "Aftab",
+        lastName: "Ansari",
         email: "gm8037@myamu.ac.in",
         hashed_password: process.env.SEED_PASSWORD,
         role: "superadmin",
@@ -19,8 +19,8 @@ export default {
       },
       {
         username: "john_doe",
-        firstname: "John",
-        lastname: "Doe",
+        firstName: "John",
+        lastName: "Doe",
         email: "john.doe@example.com",
         hashed_password: process.env.SEED_PASSWORD,
         role: "user",
@@ -30,8 +30,8 @@ export default {
       },
       {
         username: "alice_smith",
-        firstname: "Alice",
-        lastname: "Smith",
+        firstName: "Alice",
+        lastName: "Smith",
         email: "alice.smith@example.com",
         hashed_password: process.env.SEED_PASSWORD,
         role: "user",
@@ -41,8 +41,8 @@ export default {
       },
       {
         username: "bob_johnson",
-        firstname: "Bob",
-        lastname: "Johnson",
+        firstName: "Bob",
+        lastName: "Johnson",
         email: "bob.johnson@example.com",
         hashed_password: process.env.SEED_PASSWORD,
         role: "user",
@@ -53,8 +53,8 @@ export default {
 
       {
         username: "admin_user",
-        firstname: "Admin",
-        lastname: "User",
+        firstName: "Admin",
+        lastName: "User",
         email: "admin.user@example.com",
         hashed_password: process.env.SEED_PASSWORD,
         role: "admin",

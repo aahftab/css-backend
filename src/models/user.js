@@ -13,11 +13,11 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
       },
-      firstname: {
+      firstName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      lastname: {
+      lastName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
