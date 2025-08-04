@@ -4,7 +4,6 @@ import logger from "../utils/logger.js";
 
 const getUserProfile = async ( req, res ) => {
   try {
-    console.log(`\nHii${JSON.stringify(req.cookies)}\n`)
     const userId = req.session.user.id;
     const user = await getUser(userId);
     if (!user) {

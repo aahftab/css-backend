@@ -40,7 +40,7 @@ const logoutController = (req, res) => {
   if (!isDeleted) {
     return res.json(new ApiResponse(500, {}, "Failed to delete session"));
   }
-  res.clearCookie("sessionId").json(new ApiResponse(200, {}, "Logout Successful"));
+  return res.clearCookie("sessionId").json(new ApiResponse(200, {}, "Logout Successful"));
 };
 
 export { loginController, logoutController };
