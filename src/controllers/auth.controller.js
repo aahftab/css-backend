@@ -21,10 +21,10 @@ const loginController = async (req, res) => {
     res
       .cookie("sessionId", session.id, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+        secure: process.env.NODE_ENV === "production",
         expires: expires,
       })
-      .json(new ApiResponse(200, { sessionId: session.id }, "Login Successful"));
+      .json(new ApiResponse(200, { sessionId: session.id, user }, "Login Successful"));
   } catch (error) {
     logger.error("Error creating session:", error);
     return res.json(new ApiResponse(500, {}, "Internal Server Error"));

@@ -1,15 +1,16 @@
 import { getSession, touchSession, deleteSession } from "../services/session.service.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import logger from "../utils/logger.js";
 
 const sessionMiddleware = async (req, res, next) => {
   const sessionId = req.cookies.sessionId;
   if (!sessionId) {
-    return next();
+    return res.json(new ApiResponse(404, {}, "Unauthorised Access")); 
   }
-  
   const session = await getSession(sessionId);
   if (!session) {
-  return res.json(new ApiResponse(401, {}, "Unauthorized"));
-}
+    return res.json(new ApiResponse(404, {}, "Unauthorised Access")); 
+  }
   if (session.expires < new Date()) {
     await deleteSession(sessionId);
     logger.info(`Session ${sessionId} expired`);
@@ -20,7 +21,7 @@ const sessionMiddleware = async (req, res, next) => {
   req.session = session;
   res.cookie("sessionId", session.id, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+    secure: process.env.NODE_ENV === "production", // Required when sameSite is "none"
     expires: session.expires,
   });
   return next();
